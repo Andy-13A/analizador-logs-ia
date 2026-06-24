@@ -40,6 +40,6 @@ Si quiere probar este proyecto localmente, siga estos pasos:
 
 5. **Ejecutar el analizador**
    ```bash
-export $(cat .env | xargs)
-python main.py
-```
+    export $(cat .env | xargs)
+    python main.py
+    ```
