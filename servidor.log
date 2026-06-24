@@ -1,0 +1,5 @@
+[2026-06-24 10:15:32] [INFO] [AuthService] Usuario 'andrea_dev' inició sesión correctamente.
+[2026-06-24 10:17:01] [WARNING] [Database] Conexión lenta detectada en el nodo secundario.
+[2026-06-24 10:20:11] [ERROR] [AuthService] Intento de login fallido para el usuario 'admin' desde la IP 192.168.1.45.
+[2026-06-24 10:21:05] [INFO] [Storage] Archivo 'reporte_mensual.pdf' subido correctamente al bucket S3.
+[2026-06-24 10:25:40] [CRITICAL] [Firewall] Detectado posible ataque de fuerza bruta (15 intentos fallidos en 5 segundos).
