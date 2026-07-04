@@ -39,7 +39,14 @@ Si quiere probar este proyecto localmente, siga estos pasos:
 - Consiga una API KEY gratuita en Google AI Studio.
 - Coloque su clave dentro del archivo .env: GEMINI_API_KEY=tu_clave_real.
 
-5. **Ejecutar el analizador**
+5. **Generar logs de prueva(Opcional):**
+Si desea probar la herramienta con logs reales de su propio sistema, puede generar 
+un volcado de su historial de Git ejecutando:
+```bash
+   git log --graph --oneline > historial_git.log
+```
+
+6. **Ejecutar el analizador**
    ```bash
     export $(cat .env | xargs)
     python main.py
