@@ -1,6 +1,6 @@
 # Analizador de Logs Inteligente con IA
 
-Herramienta automatizada en Python que simula la auditoría de seguridad de un servidor. El script lee archivos de registro (logs), filtra alertas críticas (`ERROR` y `CRITICAL`) y utiliza la API de Google Gemini para generar reportes automáticos de ciberseguridad con recomendaciones de mitigación.
+Herramienta automatizada en Python que simula la auditoría de seguridad de un servidor a través de logs reales o de prueba (incluidos en el proyecto). El script lee archivos de registro (logs), filtra alertas críticas (`ERROR` y `CRITICAL`), utiliza la API de Google Gemini para generar reportes automáticos de ciberseguridad con recomendaciones de mitigación y, finalmente, guarda los reportes automáticamente en archivos .md.
 
 ## Características
 * **Modo Interactivo (Bajo Demanda):** el usuario puede introducir dinámicamente la ruta de cualquier archivo de log del sistema que desee auditar.

@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 from google import genai
 
@@ -47,6 +48,12 @@ def procesar_logs(ruta_archivo):
     if not os.path.exists(ruta_archivo):
         print(f"Error: El archivo en la ruta '{ruta_archivo}' no existe.")
         return
+    
+    # Creamos la carpeta de reportes si no existe
+    carpeta_reportes = "reportes"
+    if not os.path.exists(carpeta_reportes):
+        os.makedirs(carpeta_reportes)
+        print(f"Carpeta '{carpeta_reportes}' creada para almacenar los reportes.")
 
     print(f"--- Iniciando análisis del archivo: {ruta_archivo} ---")
 
@@ -64,10 +71,42 @@ def procesar_logs(ruta_archivo):
                 print(f"Alerta detectada: {linea}")
                 print("Consultando con el analista de IA...")
 
+                # Obtenemos el análisis de la IA
                 reporte_ia = analizar_con_ia(linea)
 
                 print("\n === REPORTE DE LA IA ===")
                 print(reporte_ia)
+
+                # Generamos una marca de tiempo única (AñoMesDía_HoraMinutoSegundo)
+                marca_tiempo = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+                # Construimos la ruta apuntando a la carpeta especídfica con el nombre único
+                nombre_archivo = f"reporte_{marca_tiempo}_alerta_{alertas_encontradas}.md"
+                ruta_final_reporte = os.path.join(
+                    carpeta_reportes, nombre_archivo
+                )
+
+                # Guardamos el reporte de la IA en su ubicación correspondiente
+                try:
+                    with open(
+                        ruta_final_reporte, "w", encoding="utf-8"
+                    ) as archivo_alerta:
+                        archivo_alerta.write(
+                            f"# Reporte de Auditoría de Seguridad\n\n"
+                        )
+                        archivo_alerta.write(
+                            f"**Línea de log analizada:**\n`{linea}`\n\n"
+                        )
+                        archivo_alerta.write(f"## Análisis de la IA:\n")
+                        archivo_alerta.write(reporte_ia)
+                    print(
+                        f"💾 ¡Reporte guardado con éxito en: {ruta_final_reporte}!"
+                    )
+                except Exception as e_file:
+                    print(
+                        f"⚠️ No se pudo guardar el archivo del reporte: {e_file}"
+                    )
+
                 print("-" * 60 + "\n")
 
     if alertas_encontradas == 0:
