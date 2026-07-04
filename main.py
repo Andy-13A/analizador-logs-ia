@@ -43,8 +43,14 @@ def analizar_con_ia(linea_log):
             return f"Error crítico: Ambos modelos de IA están inaccesibles. Detalles: {e_backup}"
 
 def procesar_logs(ruta_archivo):
+    # Verificamos si el archivo existe antes de intentar abrirlo
+    if not os.path.exists(ruta_archivo):
+        print(f"Error: El archivo en la ruta '{ruta_archivo}' no existe.")
+        return
+
     print(f"--- Iniciando análisis del archivo: {ruta_archivo} ---")
 
+    alertas_encontradas = 0
     # Abrimos el archivo en modo lectura ('r') y especificamos la codificación UTF-8
     with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
         # Leemos el archivo línea por línea
@@ -54,6 +60,7 @@ def procesar_logs(ruta_archivo):
 
             # Filtramos: si la línea continene [ERROR] o [CRITICAL], la procesamos
             if "[ERROR]" in linea or "[CRITICAL]" in linea:
+                alertas_encontradas += 1
                 print(f"Alerta detectada: {linea}")
                 print("Consultando con el analista de IA...")
 
@@ -63,8 +70,22 @@ def procesar_logs(ruta_archivo):
                 print(reporte_ia)
                 print("-" * 60 + "\n")
 
+    if alertas_encontradas == 0:
+        print("No se encontraron alertas críticas o de error en el archivo de logs.")
+    
+    print(f"--- Análisis completado. Total de alertas encontradas: {alertas_encontradas} ---")
+
 # Bloque principal para ejecutar nuestro script
 if __name__ == "__main__":
-    ruta = "servidor.log"
-    procesar_logs(ruta)
+    print("==================================================================")
+    print("      ========= ANALIZADOR DE LOGS INTELIGENTE =========")
+    print("==================================================================")
+
+    # Solicitamos la ruta al usuario de forma dinámica
+    ruta_usuario = input("Por favor, ingresa la ruta del archivo de logs a analizar (por ejemplo, 'servidor.log'): ").strip()
+
+    # Limpiamos posibles comillas que el usuario pueda haber agregadoue se añaden al arrastraar archivos a la terminal
+    ruta_usuario = ruta_usuario.strip("'\'")
+
+    procesar_logs(ruta_usuario)
     
